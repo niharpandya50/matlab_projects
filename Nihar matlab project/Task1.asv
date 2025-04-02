@@ -1,0 +1,32 @@
+% finding the Alveolar pressure of the lung 
+
+% TOP(mbar)     = Threshold opening pressure
+% SP(mbar)      = superimposed pressure
+% H             = variable to show unit is open or not
+% N             = total number of lung unit 
+
+ % CL(mL/mbar)   = fix compliance value for each alveolar 
+% K(1/mbar)     = describes how fast compliance decreases with increasing pressure 
+
+Palv = 0:0.1:35;  % Palv(mbar)    = pressure inside the each alveolar
+Cfrc = 45;
+K = 0.03;   
+CL = 1.7;
+TOP = 10;
+SP = 0:0.5:14.5;
+N  = 30;
+
+% call for compliance function
+C =zeros(1,length(Palv));
+for i = 1:length(Palv)
+C(i) = Compliance(Cfrc,K,CL,SP,TOP,N,Palv(i));
+end
+
+% finding volume from compliance
+
+V = C.*Palv;
+
+% plot for alveolar pressure vs volume
+
+plot(Palv,V)
+
